@@ -9,6 +9,7 @@
 
 .button {
   display: inherit;
+  min-width: 50px;
   .btn.btn-secondary {
     margin-right: 5px;
   }
@@ -55,18 +56,56 @@
 
 .texera-navigation-run-button {
   margin-right: 3%;
-  background-color: #5081F3;
+  background-color: #2E66E9;
   color: white;
+  width: 70px!important;
+  min-width: unset!important;
   &:hover {
-    background-color: #2E66E9;
+    opacity: 0.7;
+    //background-color: #2E66E9;
   }
   .mat-raised-button {
     height: 30px;
   }
   .fa {
-    padding-right: 6px;
+    padding-right: 1.5px;
   }
 }
+
+
+.texera-navigation-resume-button {
+  margin-right: 3%;
+  //background-color: #5081F3;
+  //background-color: rgb(255, 0, 0);
+  color: white;
+  width: 70px!important;
+  min-width: unset!important;
+  &:hover {
+    //background-color: #2E66E9;
+    opacity: 0.7;
+  }
+  .mat-raised-button {
+    height: 30px;
+  }
+  .fa {
+    padding-right: 1.5px;
+  }
+}
+
+// .texera-navigation-resume-button {
+//   margin-right: 3%;
+//   background-color: #5081F3;
+//   color: white;
+//   &:hover {
+//     background-color: #2E66E9;
+//   }
+//   .mat-raised-button {
+//     height: 30px;
+//   }
+//   .fa {
+//     padding-right: 6px;
+//   }
+// }
 
 .version-number {
   color: #F2F1F1;

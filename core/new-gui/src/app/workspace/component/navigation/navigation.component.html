@@ -25,21 +25,36 @@
   </div>
   <div class="collapse navbar-collapse texera-navigation-execute">
     <div class="button" tourAnchor="texera-workspace-navigation-run">
+      <button class="btn btn-secondary texera-workspace-tour-run" (click)="tourService.toggle()" style="visibility: hidden;">
+          <span>
+              <i *ngIf="visibleSpinner()" id="texera-running-icon" class="fa fa-spinner fa-spin" aria-hidden="true" style="visibility: visible;"></i>
+          </span>
+      </button>
+
       <button class="btn btn-secondary texera-workspace-tour-run" (click)="tourService.toggle()" tourAnchor="start.tour">
           <span>
             <i id="texera-tour-icon" class="fa fa-question-circle-o" aria-hidden="true"></i>
           </span>
       </button>
 
-      <button mat-raised-button class="texera-navigation-run-button texera-navigation-run-text" (click)="onButtonClick()">
+      <button mat-raised-button class="texera-navigation-run-button " (click)="onButtonClick()"> <!--texera-navigation-run-text-->
         <span>
-          <i *ngIf="!runSpinner()" id="texera-run-icon" class="fa fa-play" aria-hidden="true"></i>
-          <i *ngIf="runSpinner()" id="texera-pause-icon" class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+          <i *ngIf="!resumeSpinner()" id="texera-run-icon" class="fa fa-play" aria-hidden="true" ></i>
+          <i *ngIf="resumeSpinner()" id="texera-restart-icon" class="fa fa-stop" aria-hidden="true"></i>
         </span>
-        <span>
+        <!-- <span>
             {{ getRunButtonText()}}
-        </span>
+        </span> -->
       </button>
+
+      <button mat-raised-button class="texera-navigation-resume-button" [ngStyle]="{'background-color': visibleSpinner() ? '#2E66E9':'grey','opacity' : visibleSpinner() ? '' : '0.7'}" (click)="onResumeButtonClick()">  <!--texera-navigation-run-text-->
+        <span>
+          <i *ngIf="!runSpinnerForResume()" id="texera-run-icon" class="fa fa-play" aria-hidden="true" ></i>
+          <i *ngIf="runSpinnerForResume()" id="texera-pause-icon" class="fa fa-pause" aria-hidden="true"></i>
+        </span>
+
+      </button>
+
     </div>
   </div>
 </nav>

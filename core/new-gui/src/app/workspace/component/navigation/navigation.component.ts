@@ -6,6 +6,8 @@ import { WorkflowActionService } from '../../service/workflow-graph/model/workfl
 import { JointGraphWrapper } from '../../service/workflow-graph/model/joint-graph-wrapper';
 
 import { ExecutionResult } from './../../types/execute-workflow.interface';
+import { matBottomSheetAnimations } from '@angular/material';
+import { Button } from 'protractor';
 
 
 /**
@@ -76,6 +78,7 @@ export class NavigationComponent implements OnInit {
       if (! this.isWorkflowRunning) {
         this.isWorkflowRunning = true;
         this.executeWorkflowService.executeWorkflow();
+        
       }
     } else {
       if (!this.isWorkflowRunning && !this.isWorkflowPaused) {
@@ -84,20 +87,49 @@ export class NavigationComponent implements OnInit {
         this.isWorkflowRunning = true;
         this.executeWorkflowService.executeWorkflow();
       } else if (this.isWorkflowRunning && this.isWorkflowPaused) {
-        this.executeWorkflowService.resumeWorkflow();
+        //this.executeWorkflowService.resumeWorkflow();
+        //put a shutdown function here(aoran chen)
       } else if (this.isWorkflowRunning && !this.isWorkflowPaused) {
-        this.executeWorkflowService.pauseWorkflow();
+        //this.executeWorkflowService.pauseWorkflow();
+        //put a shutdown function here(aoran chen)
       } else {
         throw new Error('internal error: workflow cannot be both running and paused');
       }
     }
   }
+
+  public onResumeButtonClick(): void {
+    if (this.isWorkflowRunning && this.isWorkflowPaused) {
+      this.executeWorkflowService.resumeWorkflow();
+    } else if (this.isWorkflowRunning && !this.isWorkflowPaused) {
+      this.executeWorkflowService.pauseWorkflow();
+    }
+  }
+
   public getRunButtonText(): string {
     if (! environment.pauseResumeEnabled) {
       return 'Run';
     } else {
       if (!this.isWorkflowRunning && !this.isWorkflowPaused) {
         return 'Run';
+      } else if (this.isWorkflowRunning && this.isWorkflowPaused) {
+        //return 'Resume';
+        return "Stop"
+      } else if (this.isWorkflowRunning && !this.isWorkflowPaused) {
+        //return 'Pause';
+        return "Stop"
+      } else {
+        throw new Error('internal error: workflow cannot be both running and paused');
+      }
+    }
+  }
+
+  public getResumeButtonText(): string {
+    if (! environment.pauseResumeEnabled) {
+      return 'Resume';
+    } else {
+      if (!this.isWorkflowRunning && !this.isWorkflowPaused) {
+        return 'Resume';
       } else if (this.isWorkflowRunning && this.isWorkflowPaused) {
         return 'Resume';
       } else if (this.isWorkflowRunning && !this.isWorkflowPaused) {
@@ -125,6 +157,51 @@ export class NavigationComponent implements OnInit {
       } else {
         throw new Error('internal error: workflow cannot be both running and paused');
       }
+    }
+  }
+
+  public visibleSpinner(): boolean {
+    if(this.isWorkflowRunning){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  public resumeSpinner(): boolean {
+    if (this.isWorkflowRunning || this.isWorkflowPaused) {
+        return true;
+    }
+    else {
+     return false;
+    }
+  }
+
+  public runSpinnerForResume(): boolean {
+    if (! environment.pauseResumeEnabled) {
+        return false;
+    } else {
+      if (!this.isWorkflowRunning && !this.isWorkflowPaused) {
+        return true;
+      } else if (this.isWorkflowRunning && this.isWorkflowPaused) {
+        return false;
+      } else if (this.isWorkflowRunning && !this.isWorkflowPaused) {
+        return true;
+      } else if (!this.isWorkflowRunning && !this.isWorkflowPaused) {
+        return true;
+      } else {
+        throw new Error('internal error: workflow cannot be both running and paused');
+      }
+    }
+  }
+
+  public ColorChangeForResume(): void{
+    if(this.isWorkflowRunning){
+      $('id ="ResumeButton"').css("background-color", "red");
+    }
+    else{
+      $('id ="ResumeButton"').css("background-color", "#5081F3");
     }
   }
 
